@@ -1,0 +1,644 @@
+{
+  "name": "lvl_2_course",
+  "nodes": [
+    {
+      "parameters": {
+        "language": "pythonNative",
+        "pythonCode": "my_contacts = [\n    {\n        \"json\": {\n            \"name\": \"Bob\",\n            \"email\": {\n                \"personal\": \"bob@web.de\",\n                \"company\": \"bob@company.de\",\n            },\n        }\n    },\n    {\n        \"json\": {\n            \"name\": \"Alice\",\n            \"email\": {\n                \"personal\": \"alice@web.de\",\n                \"company\": \"alice@company.de\",\n            },\n        }\n    },\n    {\n        \"json\": {\n            \"name\": \"Tim\",\n            \"email\": {\n                \"personal\": \"tim@web.de\",\n                \"company\": \"tim@company.de\",\n            },\n        }\n    },\n    {\n        \"json\": {\n            \"name\": \"Ryan\",\n            \"email\": {\n                \"personal\": \"ryan@web.de\",\n                \"company\": \"ryan@company.de\",\n            },\n        }\n    },\n    {\n        \"json\": {\n            \"name\": \"Celine\",\n            \"email\": {\n                \"personal\": \"celine@web.de\",\n                \"company\": \"celine@company.de\",\n            },\n        }\n    },\n]\n\nreturn my_contacts\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -720,
+        -384
+      ],
+      "id": "4e041234-ab72-4a41-a0df-77bf6039189f",
+      "name": "Code in Python (Native)"
+    },
+    {
+      "parameters": {
+        "language": "pythonNative",
+        "pythonCode": "items = _items\n\nfor it in items:\n    it[\"json\"][\"workEmail\"] = it[\"json\"][\"email\"][\"company\"]\n\nreturn items\n\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -480,
+        -384
+      ],
+      "id": "beeea75a-ac23-4ac0-88d2-47e3fd86af37",
+      "name": "Code in Python (Native)1"
+    },
+    {
+      "parameters": {
+        "url": "https://pokeapi.co/api/v2/pokemon",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.3,
+      "position": [
+        -720,
+        -176
+      ],
+      "id": "a2cc923c-5ca4-4065-a4ff-2fad58726abd",
+      "name": "HTTP Request"
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "results",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        -480,
+        -112
+      ],
+      "id": "88898636-ee07-4457-b1e7-59c4a61a0deb",
+      "name": "Split Out"
+    },
+    {
+      "parameters": {
+        "jsCode": "let items = $input.all();\nreturn items[0].json.results.map(item => {\n\treturn {\n\t\tjson: item\n\t}\n});"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -480,
+        -240
+      ],
+      "id": "e934b5ce-1f1a-4c85-98ac-2f78d8a497cc",
+      "name": "Code in JavaScript"
+    },
+    {
+      "parameters": {
+        "content": "## Teilen von Items\nWir teilen hier Items aus einem JSON objekt in seperate objekte\n\nEinmal mit Split Out und einmal mit JS.",
+        "height": 176,
+        "width": 592
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -1184,
+        -192
+      ],
+      "typeVersion": 1,
+      "id": "c940e93b-b925-46e0-954c-f8b2d8c45f83",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "content": "## Python \n\nJSON Objekte Liste (basic)",
+        "width": 592
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -1184,
+        -400
+      ],
+      "typeVersion": 1,
+      "id": "2febe49a-82e7-4e01-ae3b-bc052492305a",
+      "name": "Sticky Note1"
+    },
+    {
+      "parameters": {
+        "url": "https://blog.n8n.io/",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.3,
+      "position": [
+        -720,
+        48
+      ],
+      "id": "b68ee698-4ebc-4416-bcc9-41773c803602",
+      "name": "HTTP Request1"
+    },
+    {
+      "parameters": {
+        "operation": "extractHtmlContent",
+        "extractionValues": {
+          "values": [
+            {
+              "key": "title",
+              "cssSelector": ".item-title a",
+              "returnValue": "html"
+            },
+            {
+              "key": "url",
+              "cssSelector": ".item-title a",
+              "returnValue": "attribute",
+              "attribute": "href"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.html",
+      "typeVersion": 1.2,
+      "position": [
+        -480,
+        48
+      ],
+      "id": "77131748-dbac-4e04-9dd3-51e5c3dc6eb4",
+      "name": "HTML"
+    },
+    {
+      "parameters": {
+        "content": "## HTML Scraping\nScrapen von Infos einer Website",
+        "height": 176,
+        "width": 592
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -1184,
+        32
+      ],
+      "typeVersion": 1,
+      "id": "16a72ff4-7778-4522-958c-ae89bae19a4e",
+      "name": "Sticky Note2"
+    },
+    {
+      "parameters": {
+        "url": "https://pokeapi.co/api/v2/pokemon",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.3,
+      "position": [
+        -720,
+        272
+      ],
+      "id": "e0ded2c0-9377-4bce-8662-5acc59280100",
+      "name": "HTTP Request2"
+    },
+    {
+      "parameters": {
+        "mode": "jsonToxml",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.xml",
+      "typeVersion": 1,
+      "position": [
+        -464,
+        272
+      ],
+      "id": "ffd184c0-4221-4f0a-994a-77d6e76d4b22",
+      "name": "XML"
+    },
+    {
+      "parameters": {
+        "content": "## JSON to XML\nconverter",
+        "height": 176,
+        "width": 592
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -1184,
+        256
+      ],
+      "typeVersion": 1,
+      "id": "9c284b85-ff1b-41d9-9a90-86b02f11e9e1",
+      "name": "Sticky Note3"
+    },
+    {
+      "parameters": {
+        "operation": "getAllPeople",
+        "returnAll": true
+      },
+      "type": "n8n-nodes-base.n8nTrainingCustomerDatastore",
+      "typeVersion": 1,
+      "position": [
+        -880,
+        544
+      ],
+      "id": "2ea9e173-0193-477b-a976-3301e050dbe2",
+      "name": "Customer Datastore (n8n training)"
+    },
+    {
+      "parameters": {
+        "operation": "roundDate",
+        "date": "={{ $json.created }}",
+        "mode": "roundUp",
+        "outputFieldName": "new-date",
+        "options": {
+          "includeInputFields": true
+        }
+      },
+      "type": "n8n-nodes-base.dateTime",
+      "typeVersion": 2,
+      "position": [
+        -720,
+        544
+      ],
+      "id": "328567a3-7fad-4177-99b3-c0475d0312f3",
+      "name": "Date & Time"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "6aab0935-555b-4bd6-99f2-070611932fc3",
+              "leftValue": "={{ $json[\"new-date\"] }}",
+              "rightValue": "1960-01-01T00:00:00",
+              "operator": {
+                "type": "dateTime",
+                "operation": "after"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        -560,
+        544
+      ],
+      "id": "7e7b6353-7b88-4aa2-aed6-3e9124d4b68c",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "amount": 15
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        -320,
+        496
+      ],
+      "id": "d78a50e5-bb1d-4115-a4bf-5f3cd59e608a",
+      "name": "Wait",
+      "webhookId": "0adfa483-08d6-4941-9c29-8a9f48b3eb24"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "359d30e9-add7-4ade-83c9-07a167494514",
+              "name": "name",
+              "value": "={{ $json.name }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -112,
+        496
+      ],
+      "id": "b6f34852-a587-44c5-b960-41948022ab58",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "content": "## Datenbank Zeitstempel Infos filtern\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nTransformieren der Zeitstempel und anschliessende if condition mit after einer bestimmten Zeit erstellten.\n\nWait zur vollständigen einholung aller Daten ohne Daten zu \"vergessen\". Abschließend Infos editieren.",
+        "height": 400,
+        "width": 592
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -1184,
+        480
+      ],
+      "typeVersion": 1,
+      "id": "e6fa6151-b9dd-49ad-b62a-10697a3992f0",
+      "name": "Sticky Note4"
+    },
+    {
+      "parameters": {
+        "operation": "getAllPeople",
+        "returnAll": true
+      },
+      "type": "n8n-nodes-base.n8nTrainingCustomerDatastore",
+      "typeVersion": 1,
+      "position": [
+        -896,
+        1104
+      ],
+      "id": "e8d3a606-5487-4eb4-800a-7b703d774fbe",
+      "name": "Customer Datastore (n8n training)1"
+    },
+    {
+      "parameters": {
+        "operation": "roundDate",
+        "date": "={{ $json.created }}",
+        "mode": "roundUp",
+        "outputFieldName": "new-date",
+        "options": {
+          "includeInputFields": true
+        }
+      },
+      "type": "n8n-nodes-base.dateTime",
+      "typeVersion": 2,
+      "position": [
+        -688,
+        1104
+      ],
+      "id": "2d4eecb7-8efd-413b-b238-65777199a2fd",
+      "name": "Date & Time1"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "0fb20dad-273c-4787-a8e9-f7c0353087e9",
+              "leftValue": "={{ $json[\"new-date\"] }}",
+              "rightValue": "1960-01-01T00:00:00",
+              "operator": {
+                "type": "dateTime",
+                "operation": "after"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        -496,
+        1104
+      ],
+      "id": "da754f08-f9b0-423e-8f5a-c2686bdeb4ef",
+      "name": "If1"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        -272,
+        1024
+      ],
+      "id": "9f2fe4cc-a8d8-4904-9e45-806b7d232fd8",
+      "name": "Wait1",
+      "webhookId": "76f4e125-f55f-4b83-a2b6-d297aa6e53ed"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "a7a6ac5f-fc38-43ba-b8ae-932581a2e286",
+              "name": "outputValue",
+              "value": "={{ $json[\"new-date\"] }}",
+              "type": "string"
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -80,
+        1024
+      ],
+      "id": "a8909cb1-6efb-487c-b280-f9d0526c0828",
+      "name": "Edit Fields1"
+    },
+    {
+      "parameters": {
+        "content": "## Date Exercise\nBuild a workflow that adds five days to an input date from the Customer Datastore node.",
+        "height": 416,
+        "width": 736
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -1184,
+        912
+      ],
+      "id": "f8bf6822-859a-4cc5-9f29-d5537de6e0d4",
+      "name": "Sticky Note5"
+    },
+    {
+      "parameters": {
+        "url": "https://media.kaspersky.com/pdf/Kaspersky_Lab_Whitepaper_Anti_blocker.pdf",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.3,
+      "position": [
+        -912,
+        1472
+      ],
+      "id": "a9acf0ab-4bcd-4d37-a710-5cc636b870b1",
+      "name": "HTTP Request3"
+    },
+    {
+      "parameters": {
+        "operation": "pdf",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.extractFromFile",
+      "typeVersion": 1.1,
+      "position": [
+        -688,
+        1472
+      ],
+      "id": "3d184f62-b932-4af9-a4dc-3b843364f803",
+      "name": "Extract from File"
+    },
+    {
+      "parameters": {
+        "content": "## convert a PDF file to JSON",
+        "height": 256,
+        "width": 736
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -1184,
+        1376
+      ],
+      "id": "f99d2454-2506-434b-9609-b0f8e4c5e649",
+      "name": "Sticky Note6"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Code in Python (Native)": {
+      "main": [
+        [
+          {
+            "node": "Code in Python (Native)1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Split Out",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request1": {
+      "main": [
+        [
+          {
+            "node": "HTML",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request2": {
+      "main": [
+        [
+          {
+            "node": "XML",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Customer Datastore (n8n training)": {
+      "main": [
+        [
+          {
+            "node": "Date & Time",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Date & Time": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "Wait",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Customer Datastore (n8n training)1": {
+      "main": [
+        [
+          {
+            "node": "Date & Time1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Date & Time1": {
+      "main": [
+        [
+          {
+            "node": "If1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If1": {
+      "main": [
+        [
+          {
+            "node": "Wait1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait1": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request3": {
+      "main": [
+        [
+          {
+            "node": "Extract from File",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "availableInMCP": false
+  },
+  "versionId": "d1a7e37c-3f8c-4f7b-ad0b-5f454d9dee67",
+  "meta": {
+    "instanceId": "201aea3320714408ca53ff44dec4e4c9cfcb024e856ea6676123963b1ba03eb9"
+  },
+  "id": "kaM5tMMmzqRjgT2J",
+  "tags": []
+}
