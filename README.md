@@ -14,7 +14,7 @@ Dieses Repo dokumentiert meine Ergebnisse aus dem **n8n Course Level 2** (Text C
 * eine **Unique ID** + Kurs-Credentials (werden nach Registrierung per Mail bereitgestellt)
 * Basic n8n-Kenntnisse + grundlegendes JavaScript-Verständnis
 
----
+
 
 ## Was ich im Kurs gelernt habe
 
@@ -36,7 +36,7 @@ Dieses Repo dokumentiert meine Ergebnisse aus dem **n8n Course Level 2** (Text C
 
 * Aufbau eines **Error Workflows** mit **Error Trigger** und Verknüpfung als Error Workflow in den Workflow-Settings. ([n8n Docs][5])
 
----
+
 
 ## Business Use Case (Kursprojekt)
 
@@ -49,7 +49,7 @@ Im Kursprojekt geht es darum, einen (realistischen) Prozess zu automatisieren:
 
 Dazu werden **3 Workflows** gebaut. ([n8n Docs][6])
 
----
+
 
 ## Workflows in diesem Repo
 
@@ -62,7 +62,7 @@ Dazu werden **3 Workflows** gebaut. ([n8n Docs][6])
 * Merge by Key: `customerCountry` (Airtable) ↔ `name.common` (API)
 * Airtable Update: Felder `region` und `subregion` schreiben ([n8n Docs][7])
 
----
+
 
 ### Workflow 2: Generating reports (mehrstufig)
 
@@ -90,7 +90,7 @@ Dazu werden **3 Workflows** gebaut. ([n8n Docs][6])
 * Convert to File: CSV-Export, Dateiname via Expression (runIndex)
 * Discord Node: Statusmeldung ([n8n Docs][8])
 
----
+
 
 ### Workflow 3: Monitoring workflow errors (Error Workflow)
 
