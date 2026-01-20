@@ -1,0 +1,215 @@
+{
+  "name": "merg_split_loop_data",
+  "nodes": [
+    {
+      "parameters": {
+        "mode": "combine",
+        "mergeByFields": {
+          "values": [
+            {
+              "field1": "name",
+              "field2": "name"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "bcf0afb6-e9d4-47e5-bca0-3adc73d59a12",
+      "name": "Merge",
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 2.1,
+      "position": [
+        -1440,
+        1472
+      ]
+    },
+    {
+      "parameters": {},
+      "id": "aa386696-eda4-4726-bb3b-ebb0dad7a392",
+      "name": "When clicking \"Execute workflow\"",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -2240,
+        1936
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "getAllPeople"
+      },
+      "id": "3472faff-5b65-4520-9b6c-2a60cfac1630",
+      "name": "Customer Datastore (n8n training)",
+      "type": "n8n-nodes-base.n8nTrainingCustomerDatastore",
+      "typeVersion": 1,
+      "position": [
+        -1664,
+        1344
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "return [\n  {\n    'name': 'Jay Gatsby',\n    'language': 'English',\n    'country': {\n      'code': 'US',\n      'name': 'United States'\n    }\n    \n  }\n  \n];"
+      },
+      "id": "1af6f20b-e994-4300-848a-8b37952ff8e4",
+      "name": "Code",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -1664,
+        1616
+      ]
+    },
+    {
+      "parameters": {
+        "content": "## Merge Exercise\n",
+        "height": 560,
+        "width": 880
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -2096,
+        1216
+      ],
+      "id": "10f7e370-77d5-45ca-9eb4-af1c7b037d60",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "jsCode": "let urls = [\n\t{\n\t\tjson: {\n\t\turl: 'https://medium.com/feed/n8n-io'\n\t\t}\n\t},\n\t{\n      \tjson: {\n\t\turl: 'https://dev.to/feed/n8n'\n\t\t} \n\t}\n]\nreturn urls;"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -1952,
+        1936
+      ],
+      "id": "e882e3f9-18e2-4ac2-9b21-a28c38df26c5",
+      "name": "Code in JavaScript"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        -1744,
+        1936
+      ],
+      "id": "f4979e34-bcba-4fb0-8259-03432d5a3580",
+      "name": "Loop Over Items"
+    },
+    {
+      "parameters": {
+        "url": "={{ $json.url }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.rssFeedRead",
+      "typeVersion": 1.2,
+      "position": [
+        -1472,
+        1952
+      ],
+      "id": "ed7744ab-4b06-4fa1-b0c1-87a9a68e4f64",
+      "name": "RSS Read"
+    },
+    {
+      "parameters": {
+        "content": "## Workflow for getting RSS feeds from two blogs",
+        "height": 304,
+        "width": 880
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -2096,
+        1840
+      ],
+      "typeVersion": 1,
+      "id": "f50b115d-6346-49c0-ab74-7b250ce53f32",
+      "name": "Sticky Note1"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When clicking \"Execute workflow\"": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Customer Datastore (n8n training)": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Loop Over Items": {
+      "main": [
+        [],
+        [
+          {
+            "node": "RSS Read",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "RSS Read": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "availableInMCP": false
+  },
+  "versionId": "f1b7b78c-fc6f-4d32-a6d2-939af57fef0a",
+  "meta": {
+    "instanceId": "201aea3320714408ca53ff44dec4e4c9cfcb024e856ea6676123963b1ba03eb9"
+  },
+  "id": "P9hGZxWsTfGGF1F1",
+  "tags": []
+}
